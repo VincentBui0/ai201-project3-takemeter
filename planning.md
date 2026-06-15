@@ -19,6 +19,7 @@ The comment makes a specific argument and backs it up. References named characte
 *Examples:*
 - "Oda foreshadowed Zoro's connection to Ryuma back in Thriller Bark — the way Ryuma's shadow fights with the same style and the Shusui transfer feels too deliberate to be just a homage."
 - "Luffy's Gear 5 awakening recontextualizes the Nika myth from chapter 1 — the 'freeing' framing was there from the start, we just read it as metaphor."
+- "Basil was a coward who gave up his pride and worked for Kaido out of fear of death, and he RESENTS Kid and Killer because they didn't take the same deal, and managed to escape with their lives anyway. I love the way it ties into his powers: he reads his future to avoid any possible risk, and makes other people die in his place, or uses hostages as leverage over people he cant beat. Cowardice is his MO, and he's sooo smug about having Kid's strawman doll, until Killer just slices his arm right off. So Good."
 
 **mid_effort**  
 Has a point or opinion but doesn't support it with specifics. Makes a claim about the story or characters without grounding it in evidence. Includes weak takes that are directionally interesting but underdeveloped.
