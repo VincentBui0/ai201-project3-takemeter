@@ -99,7 +99,20 @@ Could be `low_effort` or `mid_effort`. It's short and conversational, but it's r
 **Fine-tuning environment:** Google Colab (T4 GPU)  
 **Libraries:** transformers, datasets, scikit-learn
 
-**Key hyperparameter decisions:** *(to be filled in after training)*
+**Key hyperparameter decisions:**
+
+The notebook's default configuration (3 epochs, batch size 16, learning rate 2e-5) undertrained the model. With only 140 training examples and batch size 16, training ran for just 27 total optimizer steps across 3 epochs — far too few for the classification head to learn the task. Validation accuracy after 3 epochs sat at 43.3%, barely above the 33% chance baseline for a 3-class problem, and training loss only dropped from 1.088 to 1.078 (starting point is ln(3) ≈ 1.099, i.e. the loss of a model that hasn't learned anything).
+
+Changed two hyperparameters:
+
+- **`num_train_epochs`: 3 → 12.** More passes over the same small dataset gave the optimizer enough updates to actually fit the task.
+- **`per_device_train_batch_size`: 16 → 8.** Halving batch size doubled the number of optimizer steps per epoch (from 9 to 18), which matters more when total step count is the bottleneck on a small dataset.
+
+Left `learning_rate` at 2e-5 (standard for BERT-family fine-tuning) and `weight_decay`/`warmup_steps` largely untouched, lowering `warmup_steps` from 50 to 20 to keep the warmup period proportionate given the higher total step count.
+
+With these changes, training loss dropped from 1.088 to 0.038 and validation accuracy rose from 43.3% to a peak of 86.7% at epoch 10. `load_best_model_at_end=True` with `metric_for_best_model="accuracy"` ensured the final model was the epoch-10 checkpoint rather than epoch 12, where validation loss had started ticking back up (0.402 → 0.431), a mild overfitting signal.
+
+**Test set results:** 93.3% accuracy, macro F1 ≈ 0.93 (high_effort F1 = 0.96, mid_effort F1 = 0.91, low_effort F1 = 0.92). This exceeds all thresholds set in the Definition of Success section by a wide margin — wide enough that it warrants scrutiny rather than taking the number at face value. No train/test leakage was found (zero exact or near-duplicate text across splits, checked via sequence similarity). The leading hypothesis is that the model picked up on surface-level correlates of effort level — comment length, density of named entities, punctuation patterns — rather than the kind of narrative reasoning a human annotator uses. The test set is also small (30 examples), so the percentage is sensitive to individual predictions. This will be the central question explored in the evaluation report's "what the model learned vs. intended" reflection.
 
 ---
 
