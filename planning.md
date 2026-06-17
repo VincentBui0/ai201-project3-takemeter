@@ -42,7 +42,7 @@ Reaction, hype, agreement, or noise with no substantive content. Does not engage
 - A comment is labeled by its **primary content**. If a comment starts with "W Oda" but then spends three sentences on a specific argument, label it `high_effort`.
 - Jokes and memes are `low_effort` even if they reference specific characters, unless the humor itself requires deep story knowledge to land.
 - Questions count as `mid_effort` if they're substantive ("Do you think Shanks knew about Luffy's Devil Fruit?") and `low_effort` if they're not ("Did anyone else cry at that panel?").
-- When in doubt between `high_effort` and `mid_effort`, ask: would someone who hasn't read the manga understand the point being made? If yes, it's probably `mid_effort`.
+- When in doubt between `high_effort` and `mid_effort`, ask: does the comment connect specific story details into an observation or argument, or does it just state an opinion / list events without connecting them? Specific, accurate engagement with the source material counts as `high_effort` even if the comment doesn't build a formal argument — a structural observation (e.g. comparing two characters' arcs) is enough.
 
 ### Edge Cases
 
@@ -61,19 +61,35 @@ Reaction, hype, agreement, or noise with no substantive content. Does not engage
 
 **Target distribution:** ~70–75 examples per label (minimum 200 total)
 
-**Label distribution:** *(to be filled in after annotation)*
+**Label distribution (final, n=200):**
 
-| Label | Count |
-|---|---|
-| high_effort | |
-| mid_effort | |
-| low_effort | |
+| Label | Count | % |
+|---|---|---|
+| high_effort | 87 | 43.5% |
+| mid_effort | 67 | 33.5% |
+| low_effort | 46 | 23.0% |
 
 ---
 
 ## Difficult Labeling Cases
 
-*(To be filled in after annotation — document at least 3 examples that were hard to label and explain the decision)*
+**Case 1: The Bellamy/Hawkins comparison**
+
+> "In some ways, he's kinda like Bellamy. Both eventually realized they put their money on the wrong horse, but refused to do a 180 due to principle. (Of course Hawkins had already done it once and just thought it would be completely undignified to do it again, but still)"
+
+Could be `mid_effort` or `high_effort`. It makes a specific comparative argument between two named characters and references real plot points (both switching allegiances, Hawkins' prior flip to Kaido). Initially labeled this `mid_effort` because the parallel felt underdeveloped — stated but not argued through. On reflection, decided this was the wrong test: the original `high_effort` definition over-indexed on "makes an argument" when the real distinction is depth of engagement with the source material. This comment shows specific, accurate story knowledge connecting two characters' arcs, which is a structural observation, not just an opinion. **Decision: `high_effort`.** This case led to revising the label definition (see Rules section) to weight specific engagement over argumentative structure.
+
+**Case 2: The Apoo "betrayal" comment**
+
+> "Apoo, betray everyone, act like a true pirate, Luffy and Zoro run away from him at first, survived several deadly attacks from Zoro/Drake/Cp0 like nothing... And then chill with the good guys at the end? a true boss"
+
+Could be `mid_effort` or `high_effort`. References multiple specific events (the betrayal, surviving attacks from named characters, the ending) but doesn't connect them into an argument — it's closer to a list of plot beats than analysis. **Decision: `mid_effort`.** The comment shows story knowledge but doesn't do anything with it; there's no claim being supported, just a recap with an enthusiastic tag at the end.
+
+**Case 3: Short but specific Mars/mythology comment**
+
+> "Right there between Brook and Lueven. A lot of people seemed to have missed Mars because of the new holy knight"
+
+Could be `low_effort` or `mid_effort`. It's short and conversational, but it's responding to a specific visual detail in the chapter (a character being easy to miss in a panel) rather than just reacting emotionally. **Decision: `mid_effort`.** Length isn't the deciding factor — this comment is doing observational work, even briefly, which puts it above pure reaction. Reinforced the edge case rule that brevity alone doesn't push a comment to `low_effort` if it's pointing at something specific.
 
 ---
 
