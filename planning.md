@@ -109,6 +109,25 @@ Zero-shot baseline: Groq `llama-3.3-70b-versatile`, prompted with label definiti
 
 Both models evaluated on the same held-out test set.
 
+**Baseline results (n=30 test examples, all parseable):**
+
+| Metric | Value |
+|---|---|
+| Overall accuracy | 0.600 |
+| Macro F1 | 0.58 |
+
+| Label | Precision | Recall | F1 | Support |
+|---|---|---|---|---|
+| high_effort | 0.60 | 0.69 | 0.64 | 13 |
+| mid_effort | 0.40 | 0.20 | 0.27 | 10 |
+| low_effort | 0.70 | 1.00 | 0.82 | 7 |
+
+`mid_effort` is the clear weak point — recall of 0.20 means the model missed 8 of 10 actual `mid_effort` comments, and its precision on that class (0.40) shows it's wrong more often than right even when it does predict `mid_effort`. This matches the prediction in the Definition of Success section above: the fuzziest class is the hardest for a zero-shot model to pin down.
+
+`low_effort` performance (1.00 recall) is strong, though the support is small (7 examples), so this number may not hold up on a larger test set. The likely explanation is that hype/reaction comments have a distinct enough surface pattern that even a model with no task-specific training catches them reliably.
+
+This baseline gives the fine-tuned model a real target: outperform 0.600 accuracy / 0.58 macro F1 by the 5-point margin specified in the Definition of Success section above, with particular attention to whether fine-tuning can recover `mid_effort` recall.
+
 ---
 
 ## Evaluation Metrics
