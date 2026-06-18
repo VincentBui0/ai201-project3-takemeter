@@ -44,6 +44,36 @@ With these changes, training loss dropped to 0.038 and validation accuracy peake
 
 This is the one place our implementation diverged from the spec as given. The spec's defaults are described as "a good default for small datasets," but in practice they undertrained our model on 140 examples. Documenting why we changed them, and what happened when we didn't, felt more useful than silently changing the numbers — the failure at 3 epochs is itself informative about how little signal a small fine-tuning run can extract without enough optimization steps.
 
+## Baseline Approach
+
+The zero-shot baseline used Groq's `llama-3.3-70b-versatile`, prompted with our label definitions and one example per label, run on the same 30-example test set used to evaluate the fine-tuned model. No task-specific training or fine-tuning was applied — this measures how well a general-purpose model can classify discourse quality using only the label definitions from `planning.md`.
+
+System prompt used:
+
+```
+You are classifying Reddit comments from r/OnePiece chapter discussion threads.
+Assign each comment to exactly one of the following categories.
+
+high_effort: The comment engages specifically and substantively with the source material — references named characters, events, or story mechanics, and connects them into an observation or argument.
+Example: "Oda foreshadowed Zoro's connection to Ryuma back in Thriller Bark — the way Ryuma's shadow fights with the same style and the Shusui transfer feels too deliberate to be just a homage."
+
+mid_effort: The comment expresses a real opinion or shows story knowledge but doesn't develop it — no supporting connection between the claim and specific evidence.
+Example: "Zoro is definitely related to Ryuma, it just makes too much sense."
+
+low_effort: Reaction, hype, or agreement with no substantive engagement with the story.
+Example: "This chapter went crazy"
+
+Respond with ONLY the label name.
+Do not explain your reasoning.
+
+Valid labels:
+high_effort
+mid_effort
+low_effort
+```
+
+Each test comment was sent as a user message with `temperature=0` (deterministic output) and a 20-token cap, since the model only needs to return a label string. The model's raw response was lowercased and matched against the three valid label strings (checking exact matches first, then substring matches, longest label first to avoid partial-string collisions). All 30 test responses parsed successfully into a valid label with this approach.
+
 ---
 
 ## Evaluation Report
